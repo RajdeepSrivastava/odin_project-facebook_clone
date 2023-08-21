@@ -1,0 +1,10 @@
+<h1>User Profile</h1>
+<p><strong>Email:</strong> <%= @user.email %></p>
+
+<h2>Pending Friend Requests</h2>
+<% @pending_friend_requests.each do |request| %>
+  <%= request.sender.email %>
+  <%= link_to 'Accept', accept_friendship_path(request), method: :post %>
+  <%= link_to 'Decline', friendship_path(request), method: :delete %>
+
+<% end %>
