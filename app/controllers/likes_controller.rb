@@ -17,3 +17,7 @@ class LikesController < ApplicationController
     redirect_to posts_path, notice: 'Unliked the post!'
   end
 end
+
+
+
+

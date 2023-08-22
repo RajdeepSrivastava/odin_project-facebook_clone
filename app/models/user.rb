@@ -10,16 +10,20 @@ class User < ApplicationRecord
   has_many :sent_friend_requests, class_name: 'Friendship', foreign_key: "sender_id"
   has_many :received_friend_requests, class_name: 'Friendship', foreign_key: "receiver_id"
 
-  has_many :pending_friend_requests, -> { where(status: 'pending') }, through: :received_friend_requests, source: :sender
+  has_many :pending_requests, -> { where(status: 'pending') }, through: :received_friend_requests, source: :sender
 
   def send_friend_request(receiver)
     sent_friend_requests.create(receiver: receiver, status: 'pending')
   end
 
-  def pending_friend_requests
+  def pending_requests
     received_friend_requests.where(status: 'pending')
   end
 
+  has_many :friendships
+  has_many :friends, through: :friendships
   has_many :notifications
+  has_many :posts
+  
 end
 

@@ -7,6 +7,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @pending_friend_requests = @user.pending_friend_requests
+    @pending_friend_requests = @user.pending_requests
   end
 end

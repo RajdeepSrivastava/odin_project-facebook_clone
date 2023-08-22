@@ -1,0 +1,28 @@
+<h1>All Posts</h1>
+
+<%= render 'form', post: @post %>
+
+<% @posts.each do |post| %>
+  <div class="post">
+    <p class="author"><strong>Author:</strong> <%= post.user.email %></p>
+    <p class="content"><%= post.content %></p>
+    <p class="likes"><strong>Likes:</strong> <%= post.likes.count %></p>
+    <ul class="actions">
+        <li><%= link_to 'Like', post_likes_path(post), data:{turbo_method: :post}, class: 'btn btn-primary' %></li>
+        <li><%= link_to 'Comment', new_post_comment_path(post), class: 'btn btn-secondary' %></li>
+
+    </ul>
+    <h3 class="comments-header">Comments</h3>
+    <ul class="comments-list">
+      <% post.comments.each do |comment| %>
+        <li class="comment">
+          <p class="comment-author"><strong><%= comment.user.email %>:</strong></p>
+          <p class="comment-content"><%= comment.content %></p>
+          <% if comment.user == current_user %>
+            <p><%= link_to 'Delete Comment', post_comment_path(post, comment), method: :delete, class: 'btn btn-danger' %></p>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

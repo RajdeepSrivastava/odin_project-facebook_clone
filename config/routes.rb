@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'likes/create'
   get 'likes/destroy'
   devise_for :users
+  # resources :users, only: [:index, :show]
 
   root to: "users#index"
 
@@ -13,9 +14,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, only: [:index, :create] do
+  resources :posts, only: [:index, :create, :new] do
     resources :likes, only: [:create, :destroy]
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy, :new] 
   end
 
 end
