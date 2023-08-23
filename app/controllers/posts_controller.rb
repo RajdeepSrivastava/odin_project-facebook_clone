@@ -2,10 +2,12 @@ class PostsController < ApplicationController
     before_action :authenticate_user!
     
     def index
-      @posts = Post.all
+      friend_ids = current_user.friends.pluck(:id)
+      friend_ids << current_user.id # Include the current user's posts as well
+      @posts = Post.where(user_id: friend_ids).order(created_at: :desc)
       @post = Post.new
     end
-
+    
     def new
       @post = Post.new
     end

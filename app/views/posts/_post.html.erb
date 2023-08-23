@@ -1,0 +1,5 @@
+<div class="post">
+  <p><strong><%= post.user.email %></strong></p>
+  <p><%= post.content %></p>
+  <p><%= time_ago_in_words(post.created_at) %> ago</p>
+</div>

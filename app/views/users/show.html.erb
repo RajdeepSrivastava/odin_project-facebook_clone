@@ -1,9 +1,14 @@
-<!-- app/views/users/show.html.erb -->
 <h1>User Profile</h1>
+<% if @user.profile_photo.present? %>
+  <%= image_tag @user.profile_photo.url, alt: 'Profile Photo' %>
+<% end %>
+<p><strong>First_Name:</strong> <%= @user.first_name %></p>
+<p><strong>Last_Name:</strong> <%= @user.first_name %></p>
 <p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>DOB:</strong> <%= @user.dob %></p>
 
 <% unless current_user == @user %>
-  <% if current_user.pending_requests.include?(@user) %>
+  <% if current_user.user_pending_requests.include?(@user) %>
     <%= "Pending Request Sent" %>
   <% elsif current_user.sent_friend_requests.include?(@user) %>
     <%= "Request Sent" %>
@@ -20,7 +25,7 @@
     <li>
       <p><strong>Email:</strong> <%= user.email %></p>
       <% if current_user != user %>
-        <% if current_user.pending_requests.include?(user) %>
+        <% if current_user.user_pending_requests.include?(user) %>
           <%= "Pending Request Sent" %>
         <% elsif current_user.sent_friend_requests.include?(user) %>
           <%= "Request Sent" %>

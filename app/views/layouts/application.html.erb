@@ -31,7 +31,7 @@
                   Notifications
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <% current_user.pending_requests.each do |request| %>
+                  <% current_user.user_pending_requests.each do |request| %>
                     <li>
                       <%= link_to request.sender.email, accept_friendship_path(request), method: :post, remote: true, class: 'dropdown-item' %>
                     </li>

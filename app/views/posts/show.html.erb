@@ -1,0 +1,21 @@
+<h2>Post Content</h2>
+<p><%= @post.content %></p>
+
+<h3>Likes (<%= @post.likes.count %>)</h3>
+<% @post.likes.each do |like| %>
+  <p><%= like.user.name %> liked this post.</p>
+<% end %>
+
+<h3>Comments (<%= @post.comments.count %>)</h3>
+<% @post.comments.each do |comment| %>
+  <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+<% end %>
+
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "Add a comment..." %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Comment" %>
+  </div>
+<% end %>
