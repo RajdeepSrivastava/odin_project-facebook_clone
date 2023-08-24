@@ -1,0 +1,12 @@
+<h1>User Profile</h1>
+<div class="user-profile">
+  <% if @user.profile_photo.present? %>
+    <%= image_tag @user.profile_photo.url, alt: 'Profile Photo', class: 'profile-photo' %>
+  <% end %>
+  <p><strong>First Name:</strong> <%= @user.first_name %></p>
+  <p><strong>Last Name:</strong> <%= @user.last_name %></p>
+  <p><strong>Email:</strong> <%= @user.email %></p>
+  <p><strong>Date of Birth:</strong> <%= @user.dob %></p>
+  <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary' %>
+</div>
+

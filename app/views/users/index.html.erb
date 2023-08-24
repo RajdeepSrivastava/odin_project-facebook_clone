@@ -1,0 +1,31 @@
+<h1 class="user-list-header">All Users</h1>
+
+<div class="user-list">
+  <% @users.each do |user| %>
+    <div class="user-item">
+      <h2><%= user.email %></h2>
+      <% if current_user != user %>
+        <div class="friendship-status">
+          <% if current_user.user_pending_requests.include?(user) %>
+            <%= "Pending Request Sent" %>
+          <% elsif current_user.sent_friend_requests.include?(user) %>
+            <%= "Request Sent" %>
+          <% elsif current_user.friends.include?(user) %>
+            <%= "Already Friends" %>
+          <% else %>
+            <%= link_to 'Send Friend Request', friendships_path(receiver_id: user.id), method: :post, class: 'btn btn-primary' %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <h3 class="posts-header">Posts</h3>
+      <% user.posts.each do |post| %>
+        <div class="post">
+          <p class="post-author"><strong>Posted by:</strong> <%= user.email %></p>
+          <p class="post-content"><strong>Content:</strong> <%= post.content %></p>
+        </div>
+      <% end %>
+      
+    </div>
+  <% end %>
+</div>

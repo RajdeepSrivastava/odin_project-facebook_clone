@@ -1,9 +1,9 @@
-<h1>Timeline</h1>
+<h1 class="timeline-heading">Timeline</h1>
 
 <%= render 'posts/form', post: @post %>
 
-<div id="posts">
-  <% (@posts + current_user.posts).each do |post| %>
+<div id="posts" class="post-container">
+  <% (@posts + current_user.timeline_posts).each do |post| %>
     <div class="post">
       <p class="author"><strong>Author:</strong> <%= post.user.email %></p>
       <p class="content"><%= post.content %></p>
@@ -27,3 +27,6 @@
     </div>
   <% end %>
 </div>
+
+
+

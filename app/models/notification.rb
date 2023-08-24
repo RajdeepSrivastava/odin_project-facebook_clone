@@ -1,4 +1,5 @@
 class Notification < ApplicationRecord
-    belongs_to :user
-  end
-  
+  belongs_to :user
+
+  scope :unread, -> { where(read_status: false) }
+end

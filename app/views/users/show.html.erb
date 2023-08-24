@@ -1,40 +1,46 @@
-<h1>User Profile</h1>
-<% if @user.profile_photo.present? %>
-  <%= image_tag @user.profile_photo.url, alt: 'Profile Photo' %>
-<% end %>
-<p><strong>First_Name:</strong> <%= @user.first_name %></p>
-<p><strong>Last_Name:</strong> <%= @user.first_name %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>DOB:</strong> <%= @user.dob %></p>
-
-<% unless current_user == @user %>
-  <% if current_user.user_pending_requests.include?(@user) %>
-    <%= "Pending Request Sent" %>
-  <% elsif current_user.sent_friend_requests.include?(@user) %>
-    <%= "Request Sent" %>
-  <% elsif current_user.friends.include?(@user) %>
-    <%= "Already Friends" %>
-  <% else %>
-    <%= link_to 'Send Friend Request', friendships_path(receiver_id: @user.id), method: :post %>
+<div class="user-profile">
+  <h1>User Profile</h1>
+  <% if @user.profile_photo.present? %>
+    <%= image_tag @user.profile_photo.url, alt: 'Profile Photo', class: 'profile-photo' %>
   <% end %>
-<% end %>
+  <p><strong>First Name:</strong> <%= @user.first_name %></p>
+  <p><strong>Last Name:</strong> <%= @user.last_name %></p>
+  <p><strong>Email:</strong> <%= @user.email %></p>
+  <p><strong>Date of Birth:</strong> <%= @user.dob %></p>
 
-<h2>All Users</h2>
-<ul>
-  <% @users.each do |user| %>
-    <li>
-      <p><strong>Email:</strong> <%= user.email %></p>
-      <% if current_user != user %>
-        <% if current_user.user_pending_requests.include?(user) %>
-          <%= "Pending Request Sent" %>
-        <% elsif current_user.sent_friend_requests.include?(user) %>
-          <%= "Request Sent" %>
-        <% elsif current_user.friends.include?(user) %>
-          <%= "Already Friends" %>
-        <% else %>
-          <%= link_to 'Send Friend Request', friendships_path(receiver_id: user.id), method: :post %>
-        <% end %>
+  <% unless current_user == @user %>
+    <div class="friendship-status">
+      <% if current_user.user_pending_requests.include?(@user) %>
+        <%= "Pending Request Sent" %>
+      <% elsif current_user.sent_friend_requests.include?(@user) %>
+        <%= "Request Sent" %>
+      <% elsif current_user.friends.include?(@user) %>
+        <%= "Already Friends" %>
+      <% else %>
+        <%= link_to 'Send Friend Request', friendships_path(receiver_id: @user.id), method: :post, class: 'btn btn-primary' %>
       <% end %>
-    </li>
+    </div>
   <% end %>
-</ul>
+</div>
+
+<div class="all-users">
+  <h2>All Users</h2>
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <% if current_user != user %>
+          <% if current_user.user_pending_requests.include?(user) %>
+            <%= "Pending Request Sent" %>
+          <% elsif current_user.sent_friend_requests.include?(user) %>
+            <%= "Request Sent" %>
+          <% elsif current_user.friends.include?(user) %>
+            <%= "Already Friends" %>
+          <% else %>
+            <%= link_to 'Send Friend Request', friendships_path(receiver_id: user.id), method: :post, class: 'btn btn-primary' %>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

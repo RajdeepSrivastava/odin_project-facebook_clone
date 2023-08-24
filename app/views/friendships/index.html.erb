@@ -1,0 +1,10 @@
+<h1>Pending Friendships</h1>
+
+<ul>
+  <% @pending_friendships.each do |friendship| %>
+    <li>
+      <%= friendship.sender.email %> wants to be friends with you.
+      <%= link_to 'Accept', accept_friendship_path(friendship), method: :post, remote: true %>
+    </li>
+  <% end %>
+</ul>

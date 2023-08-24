@@ -25,9 +25,23 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships, source: :receiver
   has_many :notifications
   has_many :posts
-
-  # mount_uploader :profile_photo, ProfilePhotoUploader
+  has_many :likes
+  
+  has_one_attached :profile_photo
 
   
+  def like?(post)
+    likes.exists?(post: post)
+  end
+
+  def pending_friendships
+    received_friend_requests.where(status: 'pending')
+  end
+
+  def timeline_posts
+    friend_ids = friendships.where(status: 'accepted').pluck(:receiver_id)
+    Post.where(user_id: [id] + friend_ids)
+  end
+
 end
 

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, only: [:index]
 
   def index
     @users = User.all
@@ -26,7 +26,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def user_params
-    params.require(:user).permit(:first_name, :last_name, :dob, :profile_photo)
+  def profile
+    @user = User.find(params[:id])
   end
+
+  private 
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :dob, :profile_photo)
+  end
+  
 end
